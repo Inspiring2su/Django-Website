@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+
+{% block stylesheets %}
+<style>
+    /* Your CSS styles here */
+</style>
+{% endblock stylesheets %}
+
+{% block title %} Task Info {% endblock %}
+
+{% block content %}
+<h3>Task details</h3>
+<h4>Title</h4>
+<p>{{ task.title }}</p>
+<h4>Description</h4>
+<p>{{ task.description }}</p>
+<h4>Assigned To</h4>
+<p>{{ task.assigned_to }}</p>
+<!-- You can add more details here as needed -->
+
+<img src="{% static '/images/Saudi_Arabia.jpg' %}" width="22" height="33" alt="Placeholder Image" />
+
+{% endblock content %}
+
+{% block javascripts %}
+<script>
+    // Your JavaScript code here
+</script>
+{% endblock javascripts %}
