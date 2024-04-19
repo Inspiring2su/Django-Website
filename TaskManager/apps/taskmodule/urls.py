@@ -1,5 +1,5 @@
 from django.urls import path
-from apps.bookmodule import views
+from apps.taskmodule import views
 
 urlpatterns = [    
     path('', views.index, name='index'),
