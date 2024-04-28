@@ -1,0 +1,28 @@
+{% extends "layouts/base.html" %}
+{% block stylesheets %}
+{% endblock stylesheets %}
+{% block title %} Task Info {% endblock %}
+
+{% block content %}
+<h3>Updating Task</h3>
+<form method="post">
+    {% csrf_token %}
+    <label for="task_name">Task Name</label>
+    <input type="text" id="task_name" name="task_name" value="{{ task_obj.task_name }}" />
+    <br>
+    <label for="task_description">Description</label>
+    <input type="text" id="task_description" name="task_description" value="{{ task_obj.task_description }}" />
+    <br>
+    <label for="due_date">Due Date</label>
+    <input type="date" id="due_date" name="due_date" value="{{ task_obj.due_date|date:'Y-m-d' }}" />
+    <br>
+    <label for="priority">Priority</label>
+    <select id="priority" name="priority">
+        <option value="low" {% if task_obj.priority == 'low' %} selected {% endif %}>Low</option>
+        <option value="medium" {% if task_obj.priority == 'medium' %} selected {% endif %}>Medium</option>
+        <option value="high" {% if task_obj.priority == 'high' %} selected {% endif %}>High</option>
+    </select>
+    <br>
+    <button type="submit">Update Task</button>
+</form>
+{% endblock content %}
