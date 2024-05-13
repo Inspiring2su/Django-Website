@@ -11,20 +11,26 @@
 
 {% block content %}
 <h1>Task List</h1>
-<table>
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Assigned To</th>
-        <!-- Add more table headers as needed -->
-    </tr>
-    {% for task in tasks %}
+<form method="post" action="">
+    {% csrf_token %}
+    <table>
         <tr>
+            <th>Select</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assigned To</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td><input type="checkbox" name="task_ids" value="{{ task.id }}"></td>
             <td>{{ task.title }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.assigned_to }}</td>
-            <!-- Add more table cells for additional task details -->
         </tr>
-    {% endfor %}
-</table>
+        {% endfor %}
+    </table>
+    <input type="text" name="confirmation" placeholder="Type DELETE to confirm">
+    <button type="submit">Delete Selected Tasks</button>
+</form>
+
 {% endblock content %}

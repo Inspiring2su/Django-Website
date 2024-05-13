@@ -1,12 +1,25 @@
 from django.shortcuts import render
 from .models import Task
 from django.db.models import Count
+from django.contrib import messages
 
 def index(request):
     return render(request, 'taskmodule/index.html')
 
 def tasks(request):
-    tasks = Task.objects.all() 
+    if request.method == 'POST':
+        task_ids = request.POST.getlist('task_ids')
+        confirmation = request.POST.get('confirmation')
+        
+        if confirmation == 'DELETE':
+            Task.objects.filter(id__in=task_ids).delete()
+            messages.success(request, "Selected tasks have been deleted.")
+            return redirect('tasks') 
+        else:
+            messages.error(request, "Confirmation keyword is incorrect. No tasks were deleted.")
+            return redirect('tasks')
+
+    tasks = Task.objects.all()
     return render(request, 'taskmodule/taskList.html', {'tasks': tasks})
 
 def addTask(request):
