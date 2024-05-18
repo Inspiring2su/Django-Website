@@ -1,19 +1,101 @@
-{% extends "layouts/base.html" %}
+
+
+{% block stylesheets %}
+<style>
+    body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: #f4f4f9;
+        color: #333;
+    }
+
+    .task-list-container {
+        margin: 40px auto;
+        padding: 20px;
+        max-width: 900px;
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-list-container h1 {
+        color: #333;
+        font-size: 28px;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 10px;
+    }
+
+    .create-task-button {
+        display: inline-block;
+        margin-bottom: 20px;
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #007bff;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .create-task-button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    .task-list-container table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+    }
+
+    .task-list-container th,
+    .task-list-container td {
+        padding: 12px 15px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .task-list-container th {
+        background-color: #f8f8f8;
+        font-weight: bold;
+    }
+
+    .task-list-container tr {
+        transition: background-color 0.3s ease;
+    }
+
+    .task-list-container tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    .task-list-container tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
+{% endblock stylesheets %}
+
+{% block title %}Task List{% endblock title %}
 
 {% block content %}
-<h1>Task List</h1>
-<table border="1">
-    <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Assigned To</th>
-    </tr>
-    {% for task in tasks %}
+<div class="task-list-container">
+    <h1>Task List</h1>
+    <a href="{% url 'addTask' %}" class="create-task-button">Create Task</a>
+    <table>
         <tr>
-            <td>{{ task.title }}</td>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Assigned To</th>
+            <th>Due Date</th>
+        </tr>
+        {% for task in tasks %}
+        <tr>
+            <td>{{ task.name }}</td>
             <td>{{ task.description }}</td>
             <td>{{ task.assigned_to }}</td>
+            <td>{{ task.due_date }}</td>
         </tr>
-    {% endfor %}
-</table>
+        {% endfor %}
+    </table>
+</div>
 {% endblock content %}

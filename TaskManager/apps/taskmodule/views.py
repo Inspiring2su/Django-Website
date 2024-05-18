@@ -1,10 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Task
 from django.db.models import Count
 from django.contrib import messages
 
 def index(request):
-    return render(request, 'taskmodule/index.html')
+    if request.method == 'POST':
+        task_ids = request.POST.getlist('task_ids')
+        confirmation = request.POST.get('confirmation')
+        
+        if confirmation == 'DELETE':
+            Task.objects.filter(id__in=task_ids).delete()
+            messages.success(request, "Selected tasks have been deleted.")
+            return redirect('index') 
+        else:
+            messages.error(request, "Confirmation keyword is incorrect. No tasks were deleted.")
+            return redirect('index')
+    tasks = Task.objects.all()
+    return render(request, 'taskmodule/index.html', {'tasks': tasks})
 
 def tasks(request):
     if request.method == 'POST':
@@ -24,13 +36,12 @@ def tasks(request):
 
 def addTask(request):
     if request.method == 'POST':
-        task_name_val = request.POST.get('task_name')
-        description_val = request.POST.get('task_description')
-        due_date_val = request.POST.get('due_date')
-        priority_val = request.POST.get('priority')
-        task_obj = Task(name=task_name_val, description=description_val, due_date=due_date_val, priority=priority_val)
-        task_obj.save()
-        return redirect('task_detail', taskId=task_obj.id)
+        name = request.POST.get('task_name')
+        description = request.POST.get('task_description')
+        due_date = request.POST.get('due_date')
+        priority = request.POST.get('priority')
+
+        Task.objects.create(name=name, description=description, due_date=due_date, priority=priority)
     return render(request, "taskmodule/addTask.html", {})
 
 def updateTask(request, taskId):

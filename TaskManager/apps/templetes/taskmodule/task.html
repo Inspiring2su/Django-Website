@@ -2,27 +2,67 @@
 
 {% block stylesheets %}
 <style>
-    /* Your CSS styles here */
+    .task-details {
+        font-family: Arial, sans-serif;
+        margin: 20px auto;
+        padding: 20px;
+        max-width: 600px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .task-details h3 {
+        color: #333;
+        font-size: 24px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+    }
+
+    .task-details h4 {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .task-details p {
+        color: #555;
+        font-size: 16px;
+        margin-bottom: 15px;
+        padding-left: 15px;
+    }
+
+    .task-details img {
+        display: block;
+        margin: 20px auto;
+        width: 200px;
+        height: auto;
+        border-radius: 8px;
+    }
 </style>
 {% endblock stylesheets %}
 
-{% block title %} Task Info {% endblock %}
+{% block title %}Task Info{% endblock %}
 
 {% block content %}
-<h3>Task details</h3>
-<h4>Title</h4>
-<p>{{ task.title }}</p>
-<h4>Description</h4>
-<p>{{ task.description }}</p>
-<h4>Assigned To</h4>
-<p>{{ task.assigned_to }}</p>
+<div class="task-details">
+    <h3>Task Details</h3>
+    <h4>Name</h4>
+    <p>{{ task.name }}</p>
+    <h4>Description</h4>
+    <p>{{ task.description }}</p>
+    <h4>Assigned To</h4>
+    <p>{{ task.assigned_to }}</p>
+    <h4>Due Date</h4>
+    <p>{{ task.due_date }}</p>
 
-
-<img src="{% static '/images/Saudi_Arabia.jpg' %}" width="22" height="33" alt="Placeholder Image" />
-
+    <img src="{% static 'images/Saudi_Arabia.jpg' %}" alt="Saudi Arabia" />
+</div>
 {% endblock content %}
 
 {% block javascripts %}
 <script>
+    // JavaScript code can go here if needed
 </script>
 {% endblock javascripts %}
